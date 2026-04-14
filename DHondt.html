@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DHondt vote calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+
+        :root {
+            --chart-bg: #ffffff;
+            --chart-text: #000000;
+            --chart-border: #cccccc;
+            --chart-slice-stroke: rgba(0,0,0,0.28);
+        }
+
+        .chart-card {
+            border: 1px solid var(--chart-border);
+            border-radius: 10px;
+            padding: 10px;
+            background: var(--chart-bg);
+            color: var(--chart-text);
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .topbar h1 {
+            margin: 0;
+            font-size: 26px;
+        }
+
+        .toolbar {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        button {
+            padding: 10px 14px;
+            border: 1px solid #bbb;
+            border-radius: 8px;
+            background: #f3f3f3;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        button:hover {
+            filter: brightness(0.97);
+        }
+        button:active {
+            transform: translateY(1px);
+        }
+
+        .icon-button {
+            width: 42px;
+            height: 42px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            line-height: 1;
+            padding: 0;
+        }
+
+        /* Tables */
+        .table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .table th,
+        .table td {
+            padding: 10px 10px;
+            border-bottom: 1px solid #e5e5e5;
+            vertical-align: middle;
+        }
+        .table tr:last-child td {
+            border-bottom: none;
+        }
+        .table thead th {
+            position: sticky;
+            top: 0;
+            background: #f4f4f4;
+            z-index: 2;
+            border-bottom: 1px solid #d8d8d8;
+            text-align: left;
+        }
+        .table .subhead th {
+            background: #fafafa;
+            font-size: 12px;
+            color: #444;
+        }
+        .table tbody tr:hover {
+            background: #f9fbff;
+        }
+
+        /* Dark mode (toggled via body.dark) */
+        body.dark {
+            background: #141414;
+            color: #e8e8e8;
+            --chart-bg: #1e1e1e;
+            --chart-text: #e8e8e8;
+            --chart-border: #404040;
+            --chart-slice-stroke: rgba(255,255,255,0.20);
+        }
+        body.dark button {
+            background: #2a2a2a;
+            color: #e8e8e8;
+            border-color: #555;
+        }
+        body.dark button:hover {
+            filter: brightness(1.08);
+        }
+
+        body.dark .table {
+            background: #1e1e1e;
+            border-color: #404040;
+        }
+        body.dark .table th,
+        body.dark .table td {
+            border-bottom-color: #2f2f2f;
+        }
+        body.dark .table thead th {
+            background: #232323;
+            border-bottom-color: #2f2f2f;
+            color: #e8e8e8;
+        }
+        body.dark .table .subhead th {
+            background: #1f1f1f;
+            color: #cfcfcf;
+        }
+        body.dark .table tbody tr:hover {
+            background: #262a33;
+        }
+
+        body.dark input[type="number"],
+        body.dark input[type="text"],
+        body.dark select {
+            background: #1b1b1b;
+            color: #e8e8e8;
+            border-color: #555;
+        }
+
+        body.dark input[type="range"]::-webkit-slider-runnable-track {
+            background: #555;
+        }
+        body.dark input[type="range"]::-webkit-slider-thumb {
+            background: #e8e8e8;
+            border-color: #333;
+        }
+        body.dark input[type="range"]::-moz-range-track {
+            background: #555;
+        }
+        body.dark input[type="range"]::-moz-range-thumb {
+            background: #e8e8e8;
+            border-color: #333;
+        }
+
+        /* Wrap wide tables nicely */
+        .table-wrap {
+            overflow: auto;
+            border-radius: 10px;
+            border: 1px solid transparent; /* keeps rounding on scroll */
+            margin: 10px 0 20px 0;
+        }
+
+        /* Inputs */
+        input[type="number"],
+        input[type="text"],
+        select {
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid #bbb;
+        }
+
+        /* Section spacing */
+        #VoteShareDiv, #voteTransferDiv, #resultsDiv {
+            margin-top: 18px;
+        }
+
+        /* Make range inputs feel like proper sliders (especially on Safari). */
+        input[type="range"] {
+            width: 100%;
+            margin: 6px 0;
+            cursor: pointer;
+            touch-action: pan-y;
+        }
+
+        /* WebKit (Safari/Chrome) */
+        input[type="range"]::-webkit-slider-runnable-track {
+            height: 8px;
+            background: #bbb;
+            border-radius: 999px;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #333;
+            border: 2px solid #fff;
+            margin-top: -6px; /* centers thumb on 8px track */
+        }
+
+        /* Firefox */
+        input[type="range"]::-moz-range-track {
+            height: 8px;
+            background: #bbb;
+            border-radius: 999px;
+        }
+        input[type="range"]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #333;
+            border: 2px solid #fff;
+        }
+
+        /* Modal inputs */
+        #settingsModal input[type="text"],
+        #settingsModal input[type="number"],
+        #settingsModal select {
+            padding: 8px;
+            margin: 6px 0 10px 0;
+            border-radius: 6px;
+            border: 1px solid #bbb;
+            width: min(520px, 100%);
+        }
+    </style>
+</head>
+
+<body onload="setDefaults()">
+
+<!-- YAML parser (required for loading election-data.yml). -->
+<script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+
+<script type="text/javascript" src="DHondt.js"></script>
+
+<div class="topbar">
+    <h1>Scottish Parliament D'Hondt Vote Calculator</h1>
+    <div class="toolbar">
+        <button onclick="darkMode()" id="darkModeButton">EMO MODE - BEWARE</button>
+        <button onclick="openSettings()" id="settingsButton" class="icon-button" title="Settings" aria-label="Settings">⚙</button>
+    </div>
+</div>
+
+<!-- Settings modal (includes Add party form) -->
+<div id="settingsModalBackdrop" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.55); z-index: 9999;">
+    <div id="settingsModal" style="max-width: 720px; margin: 60px auto; background: white; color: black; border-radius: 10px; padding: 18px; box-shadow: 0 10px 30px rgba(0,0,0,0.35);">
+        <div style="display:flex; align-items:center; justify-content: space-between; gap: 10px;">
+            <h2 style="margin: 0;">Settings</h2>
+            <button onclick="closeSettings()" type="button">Close</button>
+        </div>
+
+        <hr style="margin: 14px 0;">
+
+        <h3 style="margin-top: 0;">Add additional party</h3>
+        <div id="addPartyDiv">
+            <label for="newPartyLongName">Party Long Name:</label>
+            <input type="text" id="newPartyLongName" name="newPartyLongName"><br>
+
+            <label for="newPartyShortName">Party Short Name:</label>
+            <input type="text" id="newPartyShortName" name="newPartyShortName"><br>
+
+            <!-- These inputs are kept for backward compatibility (currently not used in the regional table). -->
+            <label for="newPartyConstituencySeats">Constituency Seats:</label>
+            <input type="text" id="newPartyConstituencySeats" name="newPartyConstituencySeats" value="0"><br>
+
+            <label for="newPartyListVotes">List Votes:</label>
+            <input type="text" id="newPartyListVotes" name="newPartyListVotes" value="0"><br>
+
+            <button onclick="createPartyFromHTML(); closeSettings();" type="button">Create party</button>
+        </div>
+    </div>
+</div>
+
+
+<div id="VoteShareDiv">
+
+    <h2>Constinuency seat and list vote share per party</h2>
+
+</div>
+
+<div id="voteTransferDiv">
+    <h2>Vote transfers (keep regional total constant)</h2>
+    <p style="max-width: 950px;">
+        Move list votes from one party to another <em>within a single region</em>. This keeps the region’s total number of list votes constant.
+    </p>
+</div>
+
+<div id="evaluateDiv">
+    <br>
+    <button onclick="results()">Evaluate</button>
+</div>
+
+<div id="resultsDiv">
+    <h2>Seat winners</h2>
+    <p id="seats"></p>
+</div>
+
+<script>
+    results();
+</script>
+
+
+
+</body>
+</html>

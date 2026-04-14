@@ -1,0 +1,136 @@
+Central Scotland:
+  SNP:
+    constituencySeats: 9
+    regionalVotes: 178965
+  Conservatives:
+    constituencySeats: 1
+    regionalVotes: 61944
+  Labour:
+    constituencySeats: 0
+    regionalVotes: 115638
+  Lib Dems:
+    constituencySeats: 0
+    regionalVotes: 12087
+  Greens:
+    constituencySeats: 0
+    regionalVotes: 20886
+
+Glasgow:
+  SNP:
+    constituencySeats: 7
+    regionalVotes: 116635
+  Conservatives:
+    constituencySeats: 0
+    regionalVotes: 19482
+  Labour:
+    constituencySeats: 0
+    regionalVotes: 136816
+  Lib Dems:
+    constituencySeats: 0
+    regionalVotes: 6788
+  Greens:
+    constituencySeats: 0
+    regionalVotes: 35069
+
+Highlands and Islands:
+  SNP:
+    constituencySeats: 5
+    regionalVotes: 82738
+  Conservatives:
+    constituencySeats: 0
+    regionalVotes: 56149
+  Labour:
+    constituencySeats: 0
+    regionalVotes: 33895
+  Lib Dems:
+    constituencySeats: 3
+    regionalVotes: 27068
+  Greens:
+    constituencySeats: 0
+    regionalVotes: 12141
+
+Lothian:
+  SNP:
+    constituencySeats: 8
+    regionalVotes: 150673
+  Conservatives:
+    constituencySeats: 1
+    regionalVotes: 85838
+  Labour:
+    constituencySeats: 2
+    regionalVotes: 107816
+  Lib Dems:
+    constituencySeats: 0
+    regionalVotes: 26348
+  Greens:
+    constituencySeats: 0
+    regionalVotes: 38892
+
+Mid Scotland and Fife:
+  SNP:
+    constituencySeats: 8
+    regionalVotes: 135484
+  Conservatives:
+    constituencySeats: 2
+    regionalVotes: 97968
+  Labour:
+    constituencySeats: 0
+    regionalVotes: 62095
+  Lib Dems:
+    constituencySeats: 1
+    regionalVotes: 30989
+  Greens:
+    constituencySeats: 0
+    regionalVotes: 24090
+
+North East Scotland:
+  SNP:
+    constituencySeats: 10
+    regionalVotes: 195262
+  Conservatives:
+    constituencySeats: 1
+    regionalVotes: 143606
+  Labour:
+    constituencySeats: 0
+    regionalVotes: 65876
+  Lib Dems:
+    constituencySeats: 0
+    regionalVotes: 18275
+  Greens:
+    constituencySeats: 0
+    regionalVotes: 18897
+
+South Scotland:
+  SNP:
+    constituencySeats: 9
+    regionalVotes: 106283
+  Conservatives:
+    constituencySeats: 0
+    regionalVotes: 97869
+  Labour:
+    constituencySeats: 0
+    regionalVotes: 57988
+  Lib Dems:
+    constituencySeats: 0
+    regionalVotes: 11829
+  Greens:
+    constituencySeats: 0
+    regionalVotes: 11899
+
+West Scotland:
+  SNP:
+    constituencySeats: 7
+    regionalVotes: 127774
+  Conservatives:
+    constituencySeats: 0
+    regionalVotes: 74295
+  Labour:
+    constituencySeats: 0
+    regionalVotes: 105695
+  Lib Dems:
+    constituencySeats: 0
+    regionalVotes: 4966
+  Greens:
+    constituencySeats: 0
+    regionalVotes: 37348
+
