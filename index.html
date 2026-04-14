@@ -52,11 +52,9 @@
             cursor: pointer;
             font-size: 14px;
         }
-
         button:hover {
             filter: brightness(0.97);
         }
-
         button:active {
             transform: translateY(1px);
         }
@@ -82,18 +80,15 @@
             border-radius: 10px;
             overflow: hidden;
         }
-
         .table th,
         .table td {
             padding: 10px 10px;
             border-bottom: 1px solid #e5e5e5;
             vertical-align: middle;
         }
-
         .table tr:last-child td {
             border-bottom: none;
         }
-
         .table thead th {
             position: sticky;
             top: 0;
@@ -102,22 +97,82 @@
             border-bottom: 1px solid #d8d8d8;
             text-align: left;
         }
-
         .table .subhead th {
             background: #fafafa;
             font-size: 12px;
             color: #444;
         }
-
         .table tbody tr:hover {
             background: #f9fbff;
+        }
+
+        /* Dark mode (toggled via body.dark) */
+        body.dark {
+            background: #141414;
+            color: #e8e8e8;
+            --chart-bg: #1e1e1e;
+            --chart-text: #e8e8e8;
+            --chart-border: #404040;
+            --chart-slice-stroke: rgba(255,255,255,0.20);
+        }
+        body.dark button {
+            background: #2a2a2a;
+            color: #e8e8e8;
+            border-color: #555;
+        }
+        body.dark button:hover {
+            filter: brightness(1.08);
+        }
+
+        body.dark .table {
+            background: #1e1e1e;
+            border-color: #404040;
+        }
+        body.dark .table th,
+        body.dark .table td {
+            border-bottom-color: #2f2f2f;
+        }
+        body.dark .table thead th {
+            background: #232323;
+            border-bottom-color: #2f2f2f;
+            color: #e8e8e8;
+        }
+        body.dark .table .subhead th {
+            background: #1f1f1f;
+            color: #cfcfcf;
+        }
+        body.dark .table tbody tr:hover {
+            background: #262a33;
+        }
+
+        body.dark input[type="number"],
+        body.dark input[type="text"],
+        body.dark select {
+            background: #1b1b1b;
+            color: #e8e8e8;
+            border-color: #555;
+        }
+
+        body.dark input[type="range"]::-webkit-slider-runnable-track {
+            background: #555;
+        }
+        body.dark input[type="range"]::-webkit-slider-thumb {
+            background: #e8e8e8;
+            border-color: #333;
+        }
+        body.dark input[type="range"]::-moz-range-track {
+            background: #555;
+        }
+        body.dark input[type="range"]::-moz-range-thumb {
+            background: #e8e8e8;
+            border-color: #333;
         }
 
         /* Wrap wide tables nicely */
         .table-wrap {
             overflow: auto;
             border-radius: 10px;
-            border: 1px solid transparent;
+            border: 1px solid transparent; /* keeps rounding on scroll */
             margin: 10px 0 20px 0;
         }
 
@@ -130,7 +185,12 @@
             border: 1px solid #bbb;
         }
 
-        /* Make range inputs feel like proper sliders */
+        /* Section spacing */
+        #VoteShareDiv, #voteTransferDiv, #resultsDiv {
+            margin-top: 18px;
+        }
+
+        /* Make range inputs feel like proper sliders (especially on Safari). */
         input[type="range"] {
             width: 100%;
             margin: 6px 0;
@@ -138,12 +198,12 @@
             touch-action: pan-y;
         }
 
+        /* WebKit (Safari/Chrome) */
         input[type="range"]::-webkit-slider-runnable-track {
             height: 8px;
             background: #bbb;
             border-radius: 999px;
         }
-
         input[type="range"]::-webkit-slider-thumb {
             -webkit-appearance: none;
             width: 20px;
@@ -151,15 +211,15 @@
             border-radius: 50%;
             background: #333;
             border: 2px solid #fff;
-            margin-top: -6px;
+            margin-top: -6px; /* centers thumb on 8px track */
         }
 
+        /* Firefox */
         input[type="range"]::-moz-range-track {
             height: 8px;
             background: #bbb;
             border-radius: 999px;
         }
-
         input[type="range"]::-moz-range-thumb {
             width: 20px;
             height: 20px;
@@ -178,84 +238,6 @@
             border: 1px solid #bbb;
             width: min(520px, 100%);
         }
-
-        /* Section spacing */
-        #VoteShareDiv,
-        #voteTransferDiv,
-        #resultsDiv {
-            margin-top: 18px;
-        }
-
-        /* Dark mode */
-        body.dark {
-            background: #141414;
-            color: #e8e8e8;
-            --chart-bg: #1e1e1e;
-            --chart-text: #e8e8e8;
-            --chart-border: #404040;
-            --chart-slice-stroke: rgba(255,255,255,0.20);
-        }
-
-        body.dark button {
-            background: #2a2a2a;
-            color: #e8e8e8;
-            border-color: #555;
-        }
-
-        body.dark button:hover {
-            filter: brightness(1.08);
-        }
-
-        body.dark .table {
-            background: #1e1e1e;
-            border-color: #404040;
-        }
-
-        body.dark .table th,
-        body.dark .table td {
-            border-bottom-color: #2f2f2f;
-        }
-
-        body.dark .table thead th {
-            background: #232323;
-            border-bottom-color: #2f2f2f;
-            color: #e8e8e8;
-        }
-
-        body.dark .table .subhead th {
-            background: #1f1f1f;
-            color: #cfcfcf;
-        }
-
-        body.dark .table tbody tr:hover {
-            background: #262a33;
-        }
-
-        body.dark input[type="number"],
-        body.dark input[type="text"],
-        body.dark select {
-            background: #1b1b1b;
-            color: #e8e8e8;
-            border-color: #555;
-        }
-
-        body.dark input[type="range"]::-webkit-slider-runnable-track {
-            background: #555;
-        }
-
-        body.dark input[type="range"]::-webkit-slider-thumb {
-            background: #e8e8e8;
-            border-color: #333;
-        }
-
-        body.dark input[type="range"]::-moz-range-track {
-            background: #555;
-        }
-
-        body.dark input[type="range"]::-moz-range-thumb {
-            background: #e8e8e8;
-            border-color: #333;
-        }
     </style>
 </head>
 
@@ -263,6 +245,7 @@
 
 <!-- YAML parser (required for loading election-data.yml). -->
 <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+
 <script type="text/javascript" src="DHondt.js"></script>
 
 <div class="topbar">
@@ -271,27 +254,6 @@
         <button onclick="darkMode()" id="darkModeButton">EMO MODE - BEWARE</button>
         <button onclick="openSettings()" id="settingsButton" class="icon-button" title="Settings" aria-label="Settings">⚙</button>
     </div>
-</div>
-
-<div id="voteTransferDiv">
-    <h2>Vote transfers (keep regional total constant)</h2>
-    <p style="max-width: 950px;">
-        Move list votes from one party to another <em>within a single region</em>. This keeps the region’s total number of list votes constant.
-    </p>
-</div>
-
-<div id="VoteShareDiv">
-    <h2>Constinuency seat and list vote share per party</h2>
-</div>
-
-<div id="evaluateDiv">
-    <br>
-    <button onclick="results()">Evaluate</button>
-</div>
-
-<div id="resultsDiv">
-    <h2>Seat winners</h2>
-    <p id="seats"></p>
 </div>
 
 <!-- Settings modal (includes Add party form) -->
@@ -324,6 +286,35 @@
     </div>
 </div>
 
+
+<div id="VoteShareDiv">
+
+    <h2>Constinuency seat and list vote share per party</h2>
+
+</div>
+
+<div id="voteTransferDiv">
+    <h2>Vote transfers (keep regional total constant)</h2>
+    <p style="max-width: 950px;">
+        Move list votes from one party to another <em>within a single region</em>. This keeps the region’s total number of list votes constant.
+    </p>
+</div>
+
+<div id="evaluateDiv">
+    <br>
+    <button onclick="results()">Evaluate</button>
+</div>
+
+<div id="resultsDiv">
+    <h2>Seat winners</h2>
+    <p id="seats"></p>
+</div>
+
+<script>
+    results();
+</script>
+
+
+
 </body>
 </html>
-
